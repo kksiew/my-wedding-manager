@@ -1,0 +1,21 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Web;
+
+namespace My_Wedding_Manager.ViewModels
+{
+    public class GuestViewModel
+    {
+        public string GuestId { get; set; }
+        public string Name { get; set; }
+        public string ContactNo { get; set; }
+        public bool Attendance { get; set; }
+        public bool Statusflag { get; set; }
+    }
+    public class GuestListViewModel
+    {
+        public List<GuestViewModel> Guest { get; set; }
+        public string UserName { get; set; }
+    }
+}

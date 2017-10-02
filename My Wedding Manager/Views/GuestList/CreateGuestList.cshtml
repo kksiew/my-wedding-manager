@@ -1,0 +1,42 @@
+﻿@using My_Wedding_Manager.ViewModels
+@model GuestViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Creat Guest List</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    
+    <script type="text/javascript">
+        function ResetForm() {
+            document.getElementById('gName').value = "";
+            document.getElementById('gContact').value = "";
+        }
+    </script>
+</head>
+<body>
+    <div>
+        <form action="/GuestList/SaveGuest" method="post">
+            Name: <input type="text" id="gName" name="Name" value="@Model.Name" />@Html.ValidationMessage("Name")<br />
+            Contact Number: <input type="text" id="gContact" name="ContactNo" value="@Model.ContactNo" />@Html.ValidationMessage("ContactNo")<br />
+
+            @if (Model.Statusflag && IsPost)
+            {
+                <b>Guest added!</b><br />
+            }
+            <input type="submit" name="BtnSubmit" value="Save Guest" />
+            <input type="button" name="BtnReset" value="Reset" onclick="ResetForm();" />
+            <input type="submit" name="BtnSubmit" value="Cancel" />
+        </form>
+    </div>
+<script src="~/Scripts/jquery-3.2.1.slim.min.js"></script>
+<script src="~/Scripts/popper.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

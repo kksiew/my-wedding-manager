@@ -1,0 +1,80 @@
+﻿@using My_Wedding_Manager.ViewModels
+@model GuestListViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>MyView</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+    <link href="~/Content/Checkbox.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container-fluid">
+        <!--Header Bar Start Here-->
+        <div class="row">
+            <div class="col-4" align="center">Icon Here</div>
+            <div class="col-4" align="center">My Page Title</div>
+            <div class="col-4" align="center"><a href="/GuestList/AddNew">Add New</a><br /></div>
+        </div>
+
+        <!--Header Bar End Here-->
+        <div class="row"><div class="col-xl">&nbsp;</div></div>
+        <div class="row"><div class="col-xl">&nbsp;</div></div>
+
+        <div class="row">
+            <div class="col-2" align="center"></div>
+            <div class="col-8" align="center">
+                <form action="/GuestList/FindGuest" method="post">
+                    <input type="text" class="form-control" name="SearchByName" id="SearchByName" />
+                </form>
+                <br />
+                <form id="form2" action="/GuestList/UpdateAttd" method="post">
+                    <table class="table table-hover">
+                        <th>Guest ID</th>
+                        <th>Name</th>
+                        <th>Contact No.</th>
+                        <th>Attendance</th>
+                        @foreach (GuestViewModel row in Model.Guest)
+                        {
+                            <tr>
+                                <td>@row.GuestId</td>
+                                <td>@row.Name</td>
+                                <td>@row.ContactNo</td>
+                                <td>
+                                    <a href="#" onclick="document.getElementById('form2').submit()">
+                                        @if (row.Attendance)
+                                        {
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" checked class="custom-control-input" name="Attendance" value="@row.GuestId">
+                                                <span class="custom-control-indicator"></span>
+                                            </label>
+                                        }
+                                        else
+                                        {
+                                            <label class="custom-control custom-checkbox">
+                                                <input type="checkbox" class="custom-control-input" name="Attendance" value="@row.GuestId">
+                                                <span class="custom-control-indicator"></span>
+                                            </label>
+                                        }
+                                    </a>
+                                    <input type="hidden" name="GuestIdForAttd" value="@row.GuestId" />
+                                </td>
+                            </tr>
+                        }
+                    </table>
+                </form>
+            </div>
+            <div class="col-2" align="center"></div>
+        </div>
+    </div> <!--Container-->
+<script src="~/Scripts/jquery-3.2.1.slim.min.js"></script>
+<script src="~/Scripts/popper.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+
+</body>
+</html>
