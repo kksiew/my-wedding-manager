@@ -1567,12 +1567,12 @@ pre code {
   border: 0;
 }
 
-.form-control:focus {
-  color: #495057;
-  background-color: #fff;
-  border-color: #80bdff;
-  outline: none;
-}
+    .form-control:focus {
+        color: #495057;
+        background-color: #fff;
+        border-color: /*80bdff*/ #82a06d;
+        outline: none;
+    }
 
 .form-control::-webkit-input-placeholder {
   color: #868e96;
