@@ -25,6 +25,11 @@
             
         </div>
         <div class="col-6 align-self-center">
+
+        <h6>Overall Attendance</h6>
+        <div class="progress" style="height: 40px">
+            <div class="progress-bar bg-info" role="progressbar" style="width: @Model.OverallPercentage.ToString()%; height: 40px;"><h6>@Model.OverallPercentage.ToString() %</h6></div>
+        </div><br />
         @foreach (TableViewModel t in Model.Table)
         {
             <h6>Table @t.TableNo</h6>
@@ -33,6 +38,10 @@
                     @if (t.Percentage > 59)
                     {
                         <div class="progress-bar bg-dark" role="progressbar" style="width: @t.Percentage.ToString()%; height: 40px;"><h6>@t.Percentage.ToString() %</h6></div>
+                    }
+                    else if (t.Percentage <= 0)
+                    {
+                        <div class="progress-bar bg-transparent" role="progressbar" style="width: 100%; height: 40px;"><h6>0 %</h6></div>
                     }
                     else
                     {

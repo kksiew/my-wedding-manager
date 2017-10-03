@@ -28,6 +28,7 @@ namespace My_Wedding_Manager.Controllers
                 guestViewModel.Name = gs.Name;
                 guestViewModel.GuestId = gs.GuestId.ToString();
                 guestViewModel.ContactNo = gs.ContactNo;
+                guestViewModel.TableNo = gs.TableNo;
                 guestViewModel.Attendance = gs.Attendance;
                 mylist.Add(guestViewModel);
 
@@ -38,11 +39,33 @@ namespace My_Wedding_Manager.Controllers
 
             return View("Index", guestListViewModel);
         }
+        public ActionResult ManageGuests()
+        {
+            GuestListViewModel guestListViewModel = new GuestListViewModel();
+            GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+
+            List<Guest> guests = guestBusinessLayer.GetGuests();
+            List<GuestViewModel> mylist = new List<GuestViewModel>();
+
+            foreach (Guest gs in guests)
+            {
+                GuestViewModel guestViewModel = new GuestViewModel();
+                guestViewModel.Name = gs.Name;
+                guestViewModel.GuestId = gs.GuestId.ToString();
+                guestViewModel.ContactNo = gs.ContactNo;
+                guestViewModel.TableNo = gs.TableNo;
+                guestViewModel.Attendance = gs.Attendance;
+                mylist.Add(guestViewModel);
+            }
+            guestListViewModel.Guest = mylist;
+
+            return View("ManageGuestList", guestListViewModel);
+        }
         public ActionResult AddNew()
         {
             GuestViewModel status = new GuestViewModel();
             status.Statusflag = false;
-            return View("CreateGuestList", status);
+            return View("SaveGuestList", status);
         }
         public ActionResult SaveGuest(Guest g, string BtnSubmit)
         {
@@ -58,18 +81,19 @@ namespace My_Wedding_Manager.Controllers
                         g.ContactNo = new string(g.ContactNo.Where(char.IsDigit).ToArray());
                         guestBusinessLayer.SaveGuest(g);
                         guestViewModel.Statusflag = true;
-                        return View("CreateGuestList", guestViewModel);
+                        return View("SaveGuestList", guestViewModel);
                     }
                     else
                     {
                         guestViewModel.Name = g.Name;
                         guestViewModel.ContactNo = g.ContactNo;
+                        guestViewModel.TableNo = g.TableNo;
                         guestViewModel.Attendance = g.Attendance;
                         guestViewModel.Statusflag = false;
-                        return View("CreateGuestList", guestViewModel);
+                        return View("SaveGuestList", guestViewModel);
                     }
                 case "Cancel":
-                    return RedirectToAction("Index");
+                    return RedirectToAction("ManageGuests");
             }
             return new EmptyResult();
         }
@@ -102,11 +126,70 @@ namespace My_Wedding_Manager.Controllers
 
             return View("Index", guestListViewModel);
         }
+        public ActionResult EditGuest(int id)
+        {
+            GuestViewModel guestViewModel = new GuestViewModel();
+            if (id != 0)
+            {
+                GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+                Guest guests = guestBusinessLayer.FindGuestsById(id);
+                guestViewModel.Name = guests.Name;
+                guestViewModel.GuestId = guests.GuestId.ToString();
+                guestViewModel.ContactNo = guests.ContactNo;
+                guestViewModel.TableNo = guests.TableNo;
+                guestViewModel.Attendance = guests.Attendance;
+            }
+            return View("EditGuestList", guestViewModel);
+        }
+        [HttpPost]
+        public ActionResult EditGuest(Guest guest)
+        {
+            GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+            if (ModelState.IsValid)
+                guestBusinessLayer.EditGuest(guest);
+            return RedirectToAction("ManageGuests");
+        }
+        public ActionResult DeleteGuest(int id)
+        {
+            GuestViewModel guestViewModel = new GuestViewModel();
+            if (id != 0)
+            {
+                GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+                Guest guests = guestBusinessLayer.FindGuestsById(id);
+                guestViewModel.Name = guests.Name;
+                guestViewModel.GuestId = guests.GuestId.ToString();
+                guestViewModel.ContactNo = guests.ContactNo;
+                guestViewModel.TableNo = guests.TableNo;
+                guestViewModel.Attendance = guests.Attendance;
+            }
+            return View("DeleteGuestConfirm", guestViewModel);
+        }
+        [HttpPost]
+        public ActionResult ConfirmedDeleteGuest(int id)
+        {
+            GuestViewModel guestViewModel = new GuestViewModel();
+            string BtnSubmit = Request.Form["BtnSubmit"];
+
+            if (id != 0)
+            {
+                switch (BtnSubmit)
+                {
+                    case "Yes":
+                        GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+                        guestBusinessLayer.DeleteGuest(id);
+                        break;
+                    case "Cancel":
+                        return RedirectToAction("ManageGuests");
+                }
+            }
+            return RedirectToAction("ManageGuests");
+        }
         public ActionResult UpdateAttd()
         {
             string attendanceId = Request.Form["Attendance"];
             string GuestIdForAttd = Request.Form["GuestIdForAttd"];
-            if(attendanceId == null)
+            string FromPage = Request.Form["FromPage"];
+            if (attendanceId == null)
                 attendanceId = "0";
 
             char[] delimiterChars = { ' ', ',', '.', ':', '\t' };
@@ -142,26 +225,26 @@ namespace My_Wedding_Manager.Controllers
                 }
             }
 
-            List<Guest> guests = new List<Guest>();
+            Guest guests = new Guest();
             List<GuestViewModel> mylist = new List<GuestViewModel>();
 
             foreach (string s in arrayGuestIdForAttd)
             {
-                guests = guestBusinessLayer.FindGuestsById(s);
-
-                foreach (Guest gs in guests)
-                {
-                    GuestViewModel guestViewModel = new GuestViewModel();
-                    guestViewModel.Name = gs.Name;
-                    guestViewModel.GuestId = gs.GuestId.ToString();
-                    guestViewModel.ContactNo = gs.ContactNo;
-                    guestViewModel.Attendance = gs.Attendance;
-                    mylist.Add(guestViewModel);
-                }
+                GuestViewModel guestViewModel = new GuestViewModel();
+                guests = guestBusinessLayer.FindGuestsById(int.Parse(s));
+                guestViewModel.Name = guests.Name;
+                guestViewModel.GuestId = guests.GuestId.ToString();
+                guestViewModel.ContactNo = guests.ContactNo;
+                guestViewModel.TableNo = guests.TableNo;
+                guestViewModel.Attendance = guests.Attendance;
+                mylist.Add(guestViewModel);
             }
             guestListViewModel.Guest = mylist;
 
-            return View("Index", guestListViewModel) ;
+            if (FromPage == "ManageGuestList")
+                return View("ManageGuestList", guestListViewModel);
+            else
+                return View("Index", guestListViewModel);
         }
     }
 }

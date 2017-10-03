@@ -1,0 +1,36 @@
+﻿@using My_Wedding_Manager.ViewModels
+@model GuestViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Delete Guest</title>
+
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+</head>
+<body>
+    <div>
+        <form action="/GuestList/ConfirmedDeleteGuest/@Model.GuestId" method="post">
+            <input type="hidden" name="GuestId" value="@Model.GuestId" />
+            <p class="font-weight-bold">
+                Name: @Model.Name <br />
+                Contact Number: @Model.ContactNo <br />
+                Table Number: @Model.TableNo <br />
+                Attendance: @Model.Attendance <br /><br />
+            </p>
+
+            <input type="submit" name="BtnSubmit" value="Yes" />
+            <input type="submit" name="BtnSubmit" value="Cancel" />
+        </form>
+    </div>
+<script src="~/Scripts/jquery-3.2.1.slim.min.js"></script>
+<script src="~/Scripts/popper.min.js"></script>
+<script src="~/Scripts/bootstrap.min.js"></script>
+</body>
+</html>

@@ -34,6 +34,9 @@ namespace My_Wedding_Manager.ViewModels
     }
     public class TableListViewModel
     {
+        public int Total { get; set; }
+        public int Attended { get; set; }
+        public int OverallPercentage { get; set; }
         public List<TableViewModel> Table { get; set; }
     }
 }

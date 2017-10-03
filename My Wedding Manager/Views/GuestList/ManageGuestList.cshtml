@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>MyView</title>
+    <title>Manage Guest List</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet">
     <link href="~/Content/Checkbox.css" rel="stylesheet">
 </head>
@@ -19,33 +19,32 @@
         <div class="row">
             <div class="col-4" align="center">Icon Here</div>
             <div class="col-4" align="center">My Page Title</div>
-            <div class="col-4" align="center"><a href="/GuestList/ManageGuests">Manage List</a></div>
+            <div class="col-4" align="center"><a href="/GuestList/Index">Back</a></div>
         </div>
 
         <!--Header Bar End Here-->
         <div class="row"><div class="col-xl">&nbsp;</div></div>
-        <div class="row"><div class="col-xl">&nbsp;</div></div>
+        <div class="row"><div class="col-xl" align="center"><a href="/GuestList/AddNew">Add New</a></div></div>
         <div class="row"><div class="col-xl">&nbsp;</div></div>
 
         <div class="row">
             <div class="col-2" align="center"></div>
             <div class="col-8" align="center">
-                <form action="/GuestList/FindGuest" method="post">
-                    <input type="text" class="form-control" name="SearchByName" id="SearchByName" />
-                </form>
-                <br />
                 <form id="form2" action="/GuestList/UpdateAttd" method="post">
                     <table class="table table-hover">
                         <th>Guest ID</th>
                         <th>Name</th>
                         <th>Contact No.</th>
+                        <th>Table No.</th>
                         <th>Attendance</th>
+                        <th>Manage</th>
                         @foreach (GuestViewModel row in Model.Guest)
                         {
                             <tr>
                                 <td>@row.GuestId</td>
                                 <td>@row.Name</td>
                                 <td>@row.ContactNo</td>
+                                <td>@row.TableNo</td>
                                 <td>
                                     <a href="#" onclick="document.getElementById('form2').submit()">
                                         @if (row.Attendance)
@@ -65,10 +64,14 @@
                                     </a>
                                     <input type="hidden" name="GuestIdForAttd" value="@row.GuestId" />
                                 </td>
+                                <td>
+                                    <a href="/GuestList/EditGuest/@row.GuestId"><input type="button" class="btn btn-outline-dark" value="Edit" /></a>&nbsp;&nbsp;
+                                    <a href="/GuestList/DeleteGuest/@row.GuestId"><input type="button" class="btn btn-outline-danger" value="Delete" /></a>
+                                </td>
                             </tr>
                         }
                     </table>
-                    <input type="hidden" name="FromPage" value="Index" />
+                    <input type="hidden" name="FromPage" value="ManageGuestList" />
                 </form>
             </div>
             <div class="col-2" align="center"></div>

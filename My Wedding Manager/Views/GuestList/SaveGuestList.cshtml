@@ -9,7 +9,7 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>Creat Guest List</title>
+    <title>Add New Guest</title>
 
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
     
@@ -17,6 +17,7 @@
         function ResetForm() {
             document.getElementById('gName').value = "";
             document.getElementById('gContact').value = "";
+            document.getElementById('gTableNo').value = "";
         }
     </script>
 </head>
@@ -25,6 +26,7 @@
         <form action="/GuestList/SaveGuest" method="post">
             Name: <input type="text" id="gName" name="Name" value="@Model.Name" />@Html.ValidationMessage("Name")<br />
             Contact Number: <input type="text" id="gContact" name="ContactNo" value="@Model.ContactNo" />@Html.ValidationMessage("ContactNo")<br />
+            Table Number: <input type="text" id="gTableNo" name="TableNo" value="@Model.TableNo" /><br />
 
             @if (Model.Statusflag && IsPost)
             {
