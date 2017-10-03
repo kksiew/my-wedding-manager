@@ -145,7 +145,7 @@ namespace My_Wedding_Manager.Controllers
         public ActionResult EditGuest(Guest guest)
         {
             GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
-            if (ModelState.IsValid)
+            //if (ModelState.IsValid)
                 guestBusinessLayer.EditGuest(guest);
             return RedirectToAction("ManageGuests");
         }

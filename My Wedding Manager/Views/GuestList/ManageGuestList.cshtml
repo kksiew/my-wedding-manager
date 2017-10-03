@@ -15,21 +15,40 @@
 </head>
 <body>
     <div class="container-fluid">
+        <nav class="navbar navbar-light bg-light justify-content-between"></nav>
+        <div class="row"><div class="col-xl">&nbsp;</div></div>
         <!--Header Bar Start Here-->
         <div class="row">
-            <div class="col-4" align="center">Icon Here</div>
-            <div class="col-4" align="center">My Page Title</div>
-            <div class="col-4" align="center"><a href="/GuestList/Index">Back</a></div>
+            <div class="col-1" align="center"></div>
+            <div class="col-10" align="center"><div class="row">
+                <div class="col-3" align="left">Icon Here</div>
+                <div class="col-6" align="center">My Page Title</div>
+                <div class="col-3" align="right"><a href="/GuestList/Index">Back</a></div></div>
+            </div>
+            <div class="col-1" align="center"></div>
         </div>
 
         <!--Header Bar End Here-->
-        <div class="row"><div class="col-xl">&nbsp;</div></div>
-        <div class="row"><div class="col-xl" align="center"><a href="/GuestList/AddNew">Add New</a></div></div>
-        <div class="row"><div class="col-xl">&nbsp;</div></div>
+        <div class="row"><div class="col">&nbsp;</div></div>
+        <div class="row"><div class="col">&nbsp;</div></div>
 
         <div class="row">
-            <div class="col-2" align="center"></div>
-            <div class="col-8" align="center">
+            <div class="col-1" align="center"></div>
+            <div class="col-10" align="center">
+                <div class="row">
+                    <div class="col-3" align="left">&nbsp;</div>
+                    <div class="col-6" align="center">&nbsp;</div>
+                    <div class="col-3" align="right"><a href="/GuestList/AddNew"><input type="button" class="btn btn-outline-dark" value="Add New" /></a></div>
+                </div>
+            </div>
+            <div class="col-1" align="center"></div>
+        </div>
+
+        <div class="row"><div class="col">&nbsp;</div></div>
+
+        <div class="row">
+            <div class="col-1" align="center"></div>
+            <div class="col-10" align="center">
                 <form id="form2" action="/GuestList/UpdateAttd" method="post">
                     <table class="table table-hover">
                         <th>Guest ID</th>
@@ -74,7 +93,7 @@
                     <input type="hidden" name="FromPage" value="ManageGuestList" />
                 </form>
             </div>
-            <div class="col-2" align="center"></div>
+            <div class="col-1" align="center"></div>
         </div>
     </div> <!--Container-->
 <script src="~/Scripts/jquery-3.2.1.slim.min.js"></script>

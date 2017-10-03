@@ -18,14 +18,11 @@
     <div>
         <form action="/GuestList/EditGuest" method="post">
             <input type="hidden" name="GuestId" value="@Model.GuestId" />
+            <input type="hidden" name="Attendance" value="@Model.Attendance.ToString()" />
             Name: <input type="text" id="gName" name="Name" value="@Model.Name" />@Html.ValidationMessage("Name")<br />
             Contact Number: <input type="text" id="gContact" name="ContactNo" value="@Model.ContactNo" />@Html.ValidationMessage("ContactNo")<br />
             Table Number: <input type="text" id="gContact" name="TableNo" value="@Model.TableNo" /><br />
 
-            @if (Model.Statusflag && IsPost)
-            {
-                <b>Guest added!</b><br />
-            }
             <input type="submit" name="BtnSubmit" value="Save Guest" />
             <input type="submit" name="BtnSubmit" value="Cancel" />
         </form>
