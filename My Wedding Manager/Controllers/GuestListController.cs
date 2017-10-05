@@ -119,12 +119,44 @@ namespace My_Wedding_Manager.Controllers
                 guestViewModel.Name = gs.Name;
                 guestViewModel.GuestId = gs.GuestId.ToString();
                 guestViewModel.ContactNo = gs.ContactNo;
+                guestViewModel.TableNo = gs.TableNo;
                 guestViewModel.Attendance = gs.Attendance;
                 mylist.Add(guestViewModel);
             }
             guestListViewModel.Guest = mylist;
 
             return View("Index", guestListViewModel);
+        }
+        public JsonResult JFindGuest()
+        {
+            string searchname = Request.Form["SearchByName"];
+            searchname = "all";
+
+            GuestListViewModel guestListViewModel = new GuestListViewModel();
+            GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+
+            List<Guest> guests = new List<Guest>();
+
+            if (searchname == "all")
+                guests = guestBusinessLayer.GetGuests();
+            else if (searchname != null && searchname != "")
+                guests = guestBusinessLayer.FindGuests(searchname);
+
+            List<GuestViewModel> mylist = new List<GuestViewModel>();
+
+            foreach (Guest gs in guests)
+            {
+                GuestViewModel guestViewModel = new GuestViewModel();
+                guestViewModel.Name = gs.Name;
+                guestViewModel.GuestId = gs.GuestId.ToString();
+                guestViewModel.ContactNo = gs.ContactNo;
+                guestViewModel.Attendance = gs.Attendance;
+                mylist.Add(guestViewModel);
+            }
+            guestListViewModel.Guest = mylist;
+
+            //return View("Index", guestListViewModel);
+            return Json(guestListViewModel.Guest, JsonRequestBehavior.AllowGet);
         }
         public ActionResult EditGuest(int id)
         {
@@ -245,6 +277,21 @@ namespace My_Wedding_Manager.Controllers
                 return View("ManageGuestList", guestListViewModel);
             else
                 return View("Index", guestListViewModel);
+        }
+        public JsonResult JUpdateAttd(AttdViewModel g)
+        {
+            string GuestId = g.GuestId;
+            bool Attendance = g.Attendance;
+
+            GuestListViewModel guestListViewModel = new GuestListViewModel();
+            GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+
+            if (Attendance)
+                guestBusinessLayer.SetAttd(GuestId);
+            else
+                guestBusinessLayer.DelAttd(GuestId);
+
+            return Json(g, JsonRequestBehavior.AllowGet);
         }
     }
 }

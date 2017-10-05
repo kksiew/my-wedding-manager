@@ -12,22 +12,38 @@
     <title>Manage Guest List</title>
     <link href="~/Content/bootstrap.css" rel="stylesheet">
     <link href="~/Content/Checkbox.css" rel="stylesheet">
+
+    <script type="text/javascript">
+        //Update Attendance function
+        function UpAttd(guestId) {
+            var checkbox = $('#Attendance-' + guestId).is(":checked");
+            var guestObj = {
+                GuestId: guestId,
+                Attendance: checkbox,
+            };
+            $.ajax({
+                url: "/GuestList/JUpdateAttd",
+                data: JSON.stringify(guestObj),
+                type: "POST",
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                success: function (result) {
+
+                },
+                error: function (errormessage) {
+
+                }
+            });
+        }
+    </script>
 </head>
 <body>
+    <nav class="navbar sticky-top navbar-dark justify-content-between" style="background-color: rgba(130, 160, 109, 0.6);">
+        <a class="navbar-brand" href="#"><div class="font-weight-bold">Wedding Manager</div></a>
+        <a href="/GuestList/Index"><input type="button" class="btn btn-light" value="Back" style="color: rgba(128, 128, 128, 1.0);" /></a>
+    </nav>
     <div class="container-fluid">
-        <nav class="navbar navbar-light bg-light justify-content-between"></nav>
-        <div class="row"><div class="col-xl">&nbsp;</div></div>
         <!--Header Bar Start Here-->
-        <div class="row">
-            <div class="col-1" align="center"></div>
-            <div class="col-10" align="center"><div class="row">
-                <div class="col-3" align="left">Icon Here</div>
-                <div class="col-6" align="center">My Page Title</div>
-                <div class="col-3" align="right"><a href="/GuestList/Index">Back</a></div></div>
-            </div>
-            <div class="col-1" align="center"></div>
-        </div>
-
         <!--Header Bar End Here-->
         <div class="row"><div class="col">&nbsp;</div></div>
         <div class="row"><div class="col">&nbsp;</div></div>
@@ -49,34 +65,39 @@
         <div class="row">
             <div class="col-1" align="center"></div>
             <div class="col-10" align="center">
-                <form id="form2" action="/GuestList/UpdateAttd" method="post">
+
                     <table class="table table-hover">
-                        <th>Guest ID</th>
-                        <th>Name</th>
-                        <th>Contact No.</th>
-                        <th>Table No.</th>
-                        <th>Attendance</th>
-                        <th>Manage</th>
+                        <thead style="color: rgba(128, 128, 128, 1.0); font-weight: 800;">
+                            <tr>
+                                <td>Guest ID</td>
+                                <td>Name</td>
+                                <td>Contact No.</td>
+                                <td>Table No.</td>
+                                <td>Attendance</td>
+                                <td>Manage</td>
+                            </tr>
+                        </thead>
+                        <tbody>
                         @foreach (GuestViewModel row in Model.Guest)
                         {
-                            <tr>
+                            <tr style="color: rgba(128, 128, 128, 1.0); font-weight: 400;">
                                 <td>@row.GuestId</td>
                                 <td>@row.Name</td>
                                 <td>@row.ContactNo</td>
                                 <td>@row.TableNo</td>
                                 <td>
-                                    <a href="#" onclick="document.getElementById('form2').submit()">
+                                    <a onclick="UpAttd(@row.GuestId);">
                                         @if (row.Attendance)
                                         {
                                             <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" checked class="custom-control-input" name="Attendance" value="@row.GuestId">
+                                                <input type="checkbox" checked class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
                                                 <span class="custom-control-indicator"></span>
                                             </label>
                                         }
                                         else
                                         {
                                             <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="Attendance" value="@row.GuestId">
+                                                <input type="checkbox" class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
                                                 <span class="custom-control-indicator"></span>
                                             </label>
                                         }
@@ -89,14 +110,16 @@
                                 </td>
                             </tr>
                         }
+                        </tbody>
                     </table>
                     <input type="hidden" name="FromPage" value="ManageGuestList" />
-                </form>
+
             </div>
             <div class="col-1" align="center"></div>
         </div>
     </div> <!--Container-->
 <script src="~/Scripts/jquery-3.2.1.slim.min.js"></script>
+<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 <script src="~/Scripts/popper.min.js"></script>
 <script src="~/Scripts/bootstrap.min.js"></script>
 
