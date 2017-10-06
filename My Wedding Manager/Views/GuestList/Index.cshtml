@@ -22,21 +22,28 @@
         //    return false;
         //});
         //Load Data function
-        function loadData() {
+        function FindGuest() {
+            var SearchByName = $('#SearchByName1').val();
+            if (SearchByName != null && SearchByName != "")
+                SearchByName = "/" + SearchByName;
             $.ajax({
-                url: "/GuestList/JFindGuest",
+                url: "/GuestList/JFindGuest" + SearchByName,
                 type: "GET",
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
                     var html = '';
+                    var html2 = '<p> test test</p>';
+                    $('.test1').html(html2);
                     $.each(result, function (key, item) {
-                        html += '<p>' + item.GuestId + '</p>';
-                        html += '<p>' + item.Name + '</p>';
-                        html += '<p>' + item.ContactNo + '</p>';
-                        html += '<p>' + item.Attendance + '</p>';
+                        html += '<tr>';
+                        html += '<td>' + item.GuestId + '</td>';
+                        html += '<td>' + item.Name + '</td>';
+                        html += '<td>' + item.ContactNo + '</td>';
+                        html += '<td>' + item.Attendance + '</td>';
+                        html += '</tr>';
                     });
-                    $('#divTest').html(html);
+                    $('.tbody').html(html);
                 },
                 error: function (errormessage) {
                     alert(errormessage.responseText);
@@ -73,7 +80,20 @@
     </nav>
     <div class="container-fluid">  
         <!--Header Bar Start Here-->
-
+        <table class="table table-hover" id="myTable">
+            <thead>
+                <tr>
+                    <td>Guest ID</td>
+                    <td>Name</td>
+                    <td>Contact No.</td>
+                    <td>Table No.</td>
+                    <td>Attendance</td>
+                </tr>
+            </thead>
+            <tbody class="tbody"></tbody>
+        </table>
+        <br />
+        <div class="test1"></div>
         <!--Header Bar End Here-->
         <div class="row"><div class="col-xl">&nbsp;</div></div>
         <div class="row"><div class="col-xl">&nbsp;</div></div>
@@ -86,7 +106,7 @@
                     <div class="col" align="left">&nbsp;</div>
                     <div class="col-md" align="center">
                         <form id="form-search" action="/GuestList/FindGuest" method="post">
-                            <input type="search" id="SearchByName" class="form-control" name="SearchByName" placeholder="Search guest name" autocomplete="off" />
+                            <input type="search" id="SearchByName1" class="form-control" name="SearchByName" placeholder="Search guest name" autocomplete="off" onkeyup="FindGuest();" />
                         </form>
                     </div>
                     <div class="col" align="right">&nbsp;</div>

@@ -35,7 +35,6 @@ namespace My_Wedding_Manager.Controllers
                 count++;
             }
             guestListViewModel.Guest = mylist;
-            guestListViewModel.UserName = "Admin";
 
             return View("Index", guestListViewModel);
         }
@@ -129,18 +128,19 @@ namespace My_Wedding_Manager.Controllers
         }
         public JsonResult JFindGuest()
         {
-            string searchname = Request.Form["SearchByName"];
-            searchname = "all";
-
             GuestListViewModel guestListViewModel = new GuestListViewModel();
             GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
 
             List<Guest> guests = new List<Guest>();
+            string keyword = "";
 
-            if (searchname == "all")
+            if (RouteData.Values["id"] != null)
+                keyword = RouteData.Values["id"].ToString();
+
+            if (keyword == "" || keyword == null)
                 guests = guestBusinessLayer.GetGuests();
-            else if (searchname != null && searchname != "")
-                guests = guestBusinessLayer.FindGuests(searchname);
+            else
+                guests = guestBusinessLayer.FindGuests(keyword);
 
             List<GuestViewModel> mylist = new List<GuestViewModel>();
 
@@ -155,7 +155,6 @@ namespace My_Wedding_Manager.Controllers
             }
             guestListViewModel.Guest = mylist;
 
-            //return View("Index", guestListViewModel);
             return Json(guestListViewModel.Guest, JsonRequestBehavior.AllowGet);
         }
         public ActionResult EditGuest(int id)

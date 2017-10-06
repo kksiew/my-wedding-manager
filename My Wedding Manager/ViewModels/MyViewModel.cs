@@ -17,7 +17,6 @@ namespace My_Wedding_Manager.ViewModels
     public class GuestListViewModel
     {
         public List<GuestViewModel> Guest { get; set; }
-        public string UserName { get; set; }
     }
     public class TableGuestViewModel
     {
