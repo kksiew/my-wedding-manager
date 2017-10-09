@@ -60,13 +60,13 @@ box-shadow: none;
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-indicator {
-    background-color: rgba(232, 171, 67, 0.7); /*#82a06d;*/ /*84c7c1*/
+    background-color: rgba(132, 166, 146, 0.7); /*#82a06d;*/ /*84c7c1*/
     background-image: none;
     box-shadow: none !important;
 }
 
 .custom-checkbox .custom-control-input:checked ~ .custom-control-indicator:after {
-    background-color: rgba(232, 171, 67, 0.8);
+    background-color: rgba(132, 166, 146, 0.9);
     left: 15px;
 }
 

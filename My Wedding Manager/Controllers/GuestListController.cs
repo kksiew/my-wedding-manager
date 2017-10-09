@@ -66,6 +66,7 @@ namespace My_Wedding_Manager.Controllers
             status.Statusflag = false;
             return View("SaveGuestList", status);
         }
+        [ValidateAntiForgeryToken]
         public ActionResult SaveGuest(Guest g, string BtnSubmit)
         {
             GuestViewModel guestViewModel = new GuestViewModel();
@@ -137,9 +138,9 @@ namespace My_Wedding_Manager.Controllers
             if (RouteData.Values["id"] != null)
                 keyword = RouteData.Values["id"].ToString();
 
-            if (keyword == "" || keyword == null)
+            if (keyword == "all")
                 guests = guestBusinessLayer.GetGuests();
-            else
+            else if (keyword != "" && keyword != null)
                 guests = guestBusinessLayer.FindGuests(keyword);
 
             List<GuestViewModel> mylist = new List<GuestViewModel>();
@@ -150,6 +151,7 @@ namespace My_Wedding_Manager.Controllers
                 guestViewModel.Name = gs.Name;
                 guestViewModel.GuestId = gs.GuestId.ToString();
                 guestViewModel.ContactNo = gs.ContactNo;
+                guestViewModel.TableNo = gs.TableNo;
                 guestViewModel.Attendance = gs.Attendance;
                 mylist.Add(guestViewModel);
             }
@@ -164,6 +166,8 @@ namespace My_Wedding_Manager.Controllers
             {
                 GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
                 Guest guests = guestBusinessLayer.FindGuestsById(id);
+                if (guests == null)
+                    return View("EditGuestListError");
                 guestViewModel.Name = guests.Name;
                 guestViewModel.GuestId = guests.GuestId.ToString();
                 guestViewModel.ContactNo = guests.ContactNo;
@@ -173,11 +177,20 @@ namespace My_Wedding_Manager.Controllers
             return View("EditGuestList", guestViewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult EditGuest(Guest guest)
         {
-            GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
-            //if (ModelState.IsValid)
-                guestBusinessLayer.EditGuest(guest);
+            string BtnSubmit = Request.Form["BtnSubmit"];
+            switch (BtnSubmit)
+            {
+                case "Save Guest":
+                    GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
+                    if (ModelState.IsValid)
+                        guestBusinessLayer.EditGuest(guest);
+                    break;
+                case "Cancel":
+                    return RedirectToAction("ManageGuests");
+            }
             return RedirectToAction("ManageGuests");
         }
         public ActionResult DeleteGuest(int id)
@@ -196,6 +209,7 @@ namespace My_Wedding_Manager.Controllers
             return View("DeleteGuestConfirm", guestViewModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult ConfirmedDeleteGuest(int id)
         {
             GuestViewModel guestViewModel = new GuestViewModel();
@@ -281,10 +295,11 @@ namespace My_Wedding_Manager.Controllers
         {
             string GuestId = g.GuestId;
             bool Attendance = g.Attendance;
+            int GuestIdInt = int.Parse(g.GuestId);
 
             GuestListViewModel guestListViewModel = new GuestListViewModel();
             GuestBusinessLayer guestBusinessLayer = new GuestBusinessLayer();
-
+            
             if (Attendance)
                 guestBusinessLayer.SetAttd(GuestId);
             else

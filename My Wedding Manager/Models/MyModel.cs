@@ -65,6 +65,12 @@ namespace My_Wedding_Manager.Models
             dbGuest.Database.ExecuteSqlCommand(sqlQuery);
             dbGuest.SaveChanges();
         }
+        public bool GetAttd(int GuestId)
+        {
+            GuestsList dbGuest = new GuestsList();
+            Guest guest = dbGuest.dbGuestsList.Where(a => a.GuestId == GuestId).Single(a => a.Attendance);
+            return guest.Attendance;
+        }
         public void SetAttd(string GuestId)
         {
             GuestsList dbGuest = new GuestsList();

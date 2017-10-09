@@ -1,6 +1,4 @@
-﻿@using My_Wedding_Manager.ViewModels
-@model GuestListViewModel
-@{
+﻿@{
     Layout = null;
 }
 
@@ -8,19 +6,87 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>MyView</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="~/Content/mdb.min.css" rel="stylesheet">
+
+    <!-- Customised Checkbox -->
     <link href="~/Content/Checkbox.css" rel="stylesheet">
-    <script src="~/Scripts/jquery-3.2.1.min.js"></script>
-    <script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-    <script src="~/Scripts/popper.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+
+    <link rel="icon" type="image/x-icon" href="~/img/logo_f39_icon.ico">
+
+    <!-- Custom styles -->
+    <style rel="stylesheet">
+        /* Custom STYLES */
+        html,
+        body,
+        .view {
+            height: 100%;
+        }
+        /* Navigation*/
+
+        .navbar {
+            background-color: rgba(132,166,146,0.1);
+        }
+
+        .scrolling-navbar {
+            -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            transition: background .5s ease-in-out, padding .5s ease-in-out;
+        }
+
+        .top-nav-collapse {
+            background-color: rgba(132,166,146,0.1);
+        }
+
+        footer.page-footer {
+            background-color: #adadad;
+            margin-top: -1px;
+        }
+
+        @@media only screen and (max-width: 1080px) {
+            .navbar {
+                background-color: rgba(132,166,146,0.1);
+            }
+        }
+        .navbar .btn-group .dropdown-menu a:hover {
+            color: #000 !important;
+        }
+        .navbar .btn-group .dropdown-menu a:active {
+            color: #fff !important;
+        }
+        /*Call to action*/
+
+        .view {
+            background: url("../../img/Design.jpeg")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            /*filter: background blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -webkit-filter: blur(1px);*/
+        }
+    </style>
+
     <script type="text/javascript">
-        //$('.form-control').keyup(function (e) {
-        //    this.submit();
-        //    return false;
-        //});
+        function ClearSearch() {
+            $(':input', '#form1').val('');
+            FindGuest();
+            $('#SearchByName1').focus();
+        }
         //Load Data function
         function FindGuest() {
             var SearchByName = $('#SearchByName1').val();
@@ -33,20 +99,29 @@
                 dataType: "json",
                 success: function (result) {
                     var html = '';
-                    var html2 = '<p> test test</p>';
-                    $('.test1').html(html2);
+                    var checked = '';
                     $.each(result, function (key, item) {
-                        html += '<tr>';
-                        html += '<td>' + item.GuestId + '</td>';
+                        if (item.Attendance == true) {
+                            checked = 'checked';
+                        }
+                        else
+                        {
+                            checked = '';
+                        }
+                        html += '<tr style="color: rgba(128, 128, 128, 1.0); font-weight: 400;">';
+                        html += '<td align="center">' + item.GuestId + '</td>';
                         html += '<td>' + item.Name + '</td>';
                         html += '<td>' + item.ContactNo + '</td>';
-                        html += '<td>' + item.Attendance + '</td>';
-                        html += '</tr>';
+                        html += '<td align="center">' + item.TableNo + '</td>';
+                        html += '<td><label class="custom-control custom-checkbox"><input type= "checkbox" ';
+                        html += checked;
+                        html += ' class="custom-control-input" name="Attendance" id="Attendance-';
+                        html += item.GuestId + '" onclick="UpAttd(';
+                        html += item.GuestId + ');" /><span class="custom-control-indicator"></span></label ></td></tr>';
                     });
                     $('.tbody').html(html);
                 },
                 error: function (errormessage) {
-                    alert(errormessage.responseText);
                 }
             });
         }
@@ -55,8 +130,9 @@
             var checkbox = $('#Attendance-' + guestId).is(":checked");
             var guestObj = {
                 GuestId: guestId,
-                Attendance: checkbox,
+                Attendance: checkbox
             };
+            
             $.ajax({
                 url: "/GuestList/JUpdateAttd",
                 data: JSON.stringify(guestObj),
@@ -64,107 +140,88 @@
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
                 success: function (result) {
-                    
                 },
                 error: function (errormessage) {
-
                 }
             });
         }
     </script>
 </head>
 <body>
-    <nav class="navbar sticky-top navbar-dark justify-content-between" style="background-color: rgba(130, 160, 109, 0.6);">
-        <a class="navbar-brand" href="#"><div class="font-weight-bold">Wedding Manager</div></a>
-        <a href="/GuestList/ManageGuests"><input type="button" class="btn btn-light" value="Manage List" style="color: rgba(128, 128, 128, 1.0);" /></a>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top">
+        &nbsp;&nbsp;<a class="navbar-brand align-center justify-content-center" href="#"><img src="~/img/Logo3.png" height="35" alt="" class="d-inline-block align-center justify-content-center">&nbsp; Wedding Manager</a>
+            <ul class="navbar-nav mr-auto"></ul>
+            <form class="form-inline">
+                <a href="/GuestList/ManageGuests"><span class="navbar-toggler-icon"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+            </form>
     </nav>
-    <div class="container-fluid">  
-        <!--Header Bar Start Here-->
-        <table class="table table-hover" id="myTable">
-            <thead>
-                <tr>
-                    <td>Guest ID</td>
-                    <td>Name</td>
-                    <td>Contact No.</td>
-                    <td>Table No.</td>
-                    <td>Attendance</td>
-                </tr>
-            </thead>
-            <tbody class="tbody"></tbody>
-        </table>
-        <br />
-        <div class="test1"></div>
-        <!--Header Bar End Here-->
-        <div class="row"><div class="col-xl">&nbsp;</div></div>
-        <div class="row"><div class="col-xl">&nbsp;</div></div>
-        <div class="row"><div class="col-xl">&nbsp;</div></div>
+    <!--/.Navbar-->
 
-        <div class="row">
-            <div class="col-1" align="center"></div>
-            <div class="col-10" align="center">
+    <!--Mask-->
+    <div class="view hm-black-dark">
+        <div class="full-bg-img">
+            <div class="container-fluid animated fadeInUp" style="height:100%;overflow:auto;">
                 <div class="row">
-                    <div class="col" align="left">&nbsp;</div>
-                    <div class="col-md" align="center">
-                        <form id="form-search" action="/GuestList/FindGuest" method="post">
-                            <input type="search" id="SearchByName1" class="form-control" name="SearchByName" placeholder="Search guest name" autocomplete="off" onkeyup="FindGuest();" />
-                        </form>
-                    </div>
-                    <div class="col" align="right">&nbsp;</div>
-                </div>
-
-                <div class="row"><div class="col-xl">&nbsp;</div></div>
-
-                <div class="row">
-                <div class="col" align="center">
-
-                    <table class="table table-hover">
-                        <thead style="color: rgba(128, 128, 128, 1.0); font-weight: 800;">
-                            <tr>
-                                <td>Guest ID</td>
-                                <td>Name</td>
-                                <td>Contact No.</td>
-                                <td>Table No.</td>
-                                <td>Attendance</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (GuestViewModel row in Model.Guest)
-                        {
-                            <tr style="color: rgba(128, 128, 128, 1.0); font-weight: 400;">
-                                <td>@row.GuestId</td>
-                                <td>@row.Name</td>
-                                <td>@row.ContactNo</td>
-                                <td>@row.TableNo</td>
-                                <td>
-                                    <a onclick="UpAttd(@row.GuestId);">
-                                        @if (row.Attendance)
-                                        {
-                                            <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" checked class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
-                                                <span class="custom-control-indicator"></span>
-                                            </label>
-                                        }
-                                        else
-                                        {
-                                            <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
-                                                <span class="custom-control-indicator"></span>
-                                            </label>
-                                        }
-                                    </a>
-                                    <input type="hidden" name="GuestIdForAttd" value="@row.GuestId" />
-                                </td>
-                            </tr>
-                            }
-                        </tbody>
-                    </table>
-                    <input type="hidden" name="FromPage" value="Index" />
-
-                </div>
+                    <div class="col"></div><!--col-->
+                    <div class="col-8">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <div class="row">
+                            <div class="col-2"></div><!--col-->
+                            <div class="col">
+                                <form class="form-inline" id="form1">
+                                    <div class="md-form form-group">
+                                        <!-- Original Input Color = #4285F4 (replaced with #84a692) -->
+                                        <input type="text" id="SearchByName1" class="form-control" name="SearchByName" autocomplete="off" onkeyup="FindGuest();" autofocus>
+                                        <label for="SearchByName1" class="">Search</label>
+                                    </div>
+                                    <div class="md-form form-group">
+                                        <a href="#" onclick="ClearSearch();"><i class="fa fa-times" style="color:grey;"></i>&nbsp;</a>
+                                    </div>
+                                </form>
+                            </div><!--col-->
+                            <div class="col-5"></div><!--col-->
+                        </div>
+                        <br />
+                        <div class="z-depth-2" style="background-color: rgba(255, 255, 255, 0.1);">
+                            <table class="table table-hover table-sm">
+                                <thead style="color: black; font-weight: 800;background-color: rgba(255, 255, 255, 0.6);">
+                                    <tr>
+                                        <td align="center">Guest ID</td>
+                                        <td>Name</td>
+                                        <td>Contact No.</td>
+                                        <td align="center">Table No.</td>
+                                        <td>Attendance</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody" style="background-color: rgba(255, 255, 255, 0.6);"></tbody>
+                            </table>
+                        </div>
+                    </div><!--col-->
+                    <div class="col"></div><!--col-->
                 </div>
             </div>
-            <div class="col-1" align="center"></div>
         </div>
-    </div> <!--Container-->
+    </div>
+    <!--/.Mask-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.2.1.min.js"></script>
+
+    <!-- Bootstrap dropdown -->
+    <script type="text/javascript" src="~/Scripts/popper.min.js"></script>
+
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/mdb.min.js"></script>
+
+    <!-- JQuery-Ajax -->
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </body>
 </html>

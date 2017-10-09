@@ -1,6 +1,4 @@
-﻿@using My_Wedding_Manager.ViewModels
-@model GuestViewModel
-@{
+﻿@{
     Layout = null;
 }
 
@@ -95,26 +93,14 @@
     <div class="view hm-black-dark">
         <div class="full-bg-img">
             <div class="flex-center animated fadeInUp" style="height:100%;overflow:auto;">
-                    <form action="/GuestList/EditGuest" method="post">
-                        <input type="hidden" name="GuestId" value="@Model.GuestId" />
-                        <input type="hidden" name="Attendance" value="@Model.Attendance.ToString()" />
-                        <div class="md-form">
-                            <input type="text" class="form-control-lg" id="gName" name="Name" value="@Model.Name" />@Html.ValidationMessage("Name")
-                            <label for="gName">Name:</label>
-                        </div>
-                        <div class="md-form">
-                            <input type="text" class="form-control-lg" id="gContact" name="ContactNo" value="@Model.ContactNo" />@Html.ValidationMessage("ContactNo")
-                            <label for="ContactNo">Contact Number:</label>
-                        </div>
-                        <div class="md-form">
-                            <input type="text" class="form-control-lg" id="gTableNo" name="TableNo" value="@Model.TableNo" />
-                            <label for="gTableNo">Table Number:</label>
-                        </div>
-
-                        @Html.AntiForgeryToken()
-                        <input type="submit" class="form-control" name="BtnSubmit" value="Save Guest" />
-                        <input type="submit" class="form-control" name="BtnSubmit" value="Cancel" />
-                    </form>
+                <ul>
+                    <li>
+                        <h3 class="text-danger">Guest no longer exists!</h3>
+                    </li>
+                    <li>
+                        <a href="/GuestList/ManageGuests">&nbsp;&nbsp;&nbsp;<button class="btn btn-danger">Go Back</button></a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>

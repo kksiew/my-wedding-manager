@@ -8,10 +8,82 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Manage Guest List</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="~/Content/mdb.min.css" rel="stylesheet">
+
+    <!-- Customised Checkbox -->
     <link href="~/Content/Checkbox.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="~/img/logo_f39_icon.ico">
+
+    <!-- Custom styles -->
+    <style rel="stylesheet">
+        /* Custom STYLES */
+        html,
+        body,
+        .view {
+            height: 100%;
+        }
+        /* Navigation*/
+
+        .navbar {
+            background-color: rgba(132,166,146,0.1);
+        }
+
+        .scrolling-navbar {
+            -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            transition: background .5s ease-in-out, padding .5s ease-in-out;
+        }
+
+        .top-nav-collapse {
+            background-color: rgba(132,166,146,0.1);
+        }
+
+        footer.page-footer {
+            background-color: #adadad;
+            margin-top: -1px;
+        }
+
+        @@media only screen and (max-width: 1080px) {
+            .navbar {
+                background-color: rgba(132,166,146,0.1);
+            }
+        }
+
+        .navbar .btn-group .dropdown-menu a:hover {
+            color: #000 !important;
+        }
+
+        .navbar .btn-group .dropdown-menu a:active {
+            color: #fff !important;
+        }
+        /*Call to action*/
+
+        .view {
+            background: url("../../img/Design.jpeg")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            /*filter: background blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -webkit-filter: blur(1px);*/
+        }
+    </style>
 
     <script type="text/javascript">
         //Update Attendance function
@@ -38,90 +110,101 @@
     </script>
 </head>
 <body>
-    <nav class="navbar sticky-top navbar-dark justify-content-between" style="background-color: rgba(130, 160, 109, 0.6);">
-        <a class="navbar-brand" href="#"><div class="font-weight-bold">Wedding Manager</div></a>
-        <a href="/GuestList/Index"><input type="button" class="btn btn-light" value="Back" style="color: rgba(128, 128, 128, 1.0);" /></a>
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top">
+        &nbsp;&nbsp;<a class="navbar-brand align-center justify-content-center" href="/GuestList/Index"><img src="~/img/Logo3.png" height="35" alt="" class="d-inline-block align-center justify-content-center">&nbsp; Wedding Manager</a>
+        <ul class="navbar-nav mr-auto"></ul>
+        <form class="form-inline">
+            <a href="/GuestList/Index"><i class="fa fa-arrow-left" style="font-size: 1.5em;color:black"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+        </form>
     </nav>
-    <div class="container-fluid">
-        <!--Header Bar Start Here-->
-        <!--Header Bar End Here-->
-        <div class="row"><div class="col">&nbsp;</div></div>
-        <div class="row"><div class="col">&nbsp;</div></div>
-
-        <div class="row">
-            <div class="col-1" align="center"></div>
-            <div class="col-10" align="center">
+    <!--/.Navbar-->
+    <!--Mask-->
+    <div class="view hm-black-dark">
+        <div class="full-bg-img">
+            <div class="container-fluid animated fadeInUp" style="height:100%;overflow:auto;">
                 <div class="row">
-                    <div class="col-3" align="left">&nbsp;</div>
-                    <div class="col-6" align="center">&nbsp;</div>
-                    <div class="col-3" align="right"><a href="/GuestList/AddNew"><input type="button" class="btn btn-outline-dark" value="Add New" /></a></div>
+                    <div class="col"></div><!--col-->
+                    <div class="col-8">
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <br />
+                        <div class="d-flex justify-content-end">
+                            <a href="/GuestList/AddNew"><button class="btn btn-outline-light"><i class="fa fa-user-plus" style="font-size: 1.5em;color:grey"></i></button></a>
+                        </div><!--dflex-->
+                        <br />
+                        <div class="z-depth-2" style="background-color: rgba(255, 255, 255, 0.1);">
+                            <table class="table table-hover table-sm">
+                                <thead style="color: black; font-weight: 800;background-color: rgba(255, 255, 255, 0.6);">
+                                    <tr>
+                                        <td align="center">Guest ID</td>
+                                        <td>Name</td>
+                                        <td>Contact No.</td>
+                                        <td align="center">Table No.</td>
+                                        <td>Attendance</td>
+                                        <td>Manage</td>
+                                    </tr>
+                                </thead>
+                                <tbody class="tbody" style="background-color: rgba(255, 255, 255, 0.6);">
+                                    @foreach (GuestViewModel row in Model.Guest)
+                                    {
+                                        <tr style="color: rgba(128, 128, 128, 1.0); font-weight: 400;">
+                                            <td align="center">@row.GuestId</td>
+                                            <td>@row.Name</td>
+                                            <td>@row.ContactNo</td>
+                                            <td align="center">@row.TableNo</td>
+                                            <td>
+                                                <a onclick="UpAttd(@row.GuestId);">
+                                                    @if (row.Attendance)
+                                                    {
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" checked class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
+                                                            <span class="custom-control-indicator"></span>
+                                                        </label>
+                                                    }
+                                                    else
+                                                    {
+                                                        <label class="custom-control custom-checkbox">
+                                                            <input type="checkbox" class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
+                                                            <span class="custom-control-indicator"></span>
+                                                        </label>
+                                                    }
+                                                </a>
+                                                <input type="hidden" name="GuestIdForAttd" value="@row.GuestId" />
+                                            </td>
+                                            <td>
+                                                <a href="/GuestList/EditGuest/@row.GuestId"><button class="btn btn-outline-light btn-sm"><i class="fa fa-pencil" style="font-size: 1.6em;color:lightslategrey"></i></button></a>&nbsp;&nbsp;
+                                                <a href="/GuestList/DeleteGuest/@row.GuestId"><button class="btn btn-outline-light btn-sm"><i class="fa fa-times" style="font-size: 1.6em;color:indianred"></i></button></a>
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                            <input type="hidden" name="FromPage" value="ManageGuestList" />
+                        </div>
+                    </div><!--col-->
+                    <div class="col"></div><!--col-->
                 </div>
             </div>
-            <div class="col-1" align="center"></div>
         </div>
+    </div>
+    <!--/.Mask-->
+    <!-- SCRIPTS -->
+    <!-- JQuery -->
+    <script type="text/javascript" src="~/Scripts/jquery-3.2.1.min.js"></script>
 
-        <div class="row"><div class="col">&nbsp;</div></div>
+    <!-- Bootstrap dropdown -->
+    <script type="text/javascript" src="~/Scripts/popper.min.js"></script>
 
-        <div class="row">
-            <div class="col-1" align="center"></div>
-            <div class="col-10" align="center">
+    <!-- Bootstrap core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
 
-                    <table class="table table-hover">
-                        <thead style="color: rgba(128, 128, 128, 1.0); font-weight: 800;">
-                            <tr>
-                                <td>Guest ID</td>
-                                <td>Name</td>
-                                <td>Contact No.</td>
-                                <td>Table No.</td>
-                                <td>Attendance</td>
-                                <td>Manage</td>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        @foreach (GuestViewModel row in Model.Guest)
-                        {
-                            <tr style="color: rgba(128, 128, 128, 1.0); font-weight: 400;">
-                                <td>@row.GuestId</td>
-                                <td>@row.Name</td>
-                                <td>@row.ContactNo</td>
-                                <td>@row.TableNo</td>
-                                <td>
-                                    <a onclick="UpAttd(@row.GuestId);">
-                                        @if (row.Attendance)
-                                        {
-                                            <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" checked class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
-                                                <span class="custom-control-indicator"></span>
-                                            </label>
-                                        }
-                                        else
-                                        {
-                                            <label class="custom-control custom-checkbox">
-                                                <input type="checkbox" class="custom-control-input" name="Attendance" id="Attendance-@row.GuestId" value="@row.GuestId">
-                                                <span class="custom-control-indicator"></span>
-                                            </label>
-                                        }
-                                    </a>
-                                    <input type="hidden" name="GuestIdForAttd" value="@row.GuestId" />
-                                </td>
-                                <td>
-                                    <a href="/GuestList/EditGuest/@row.GuestId"><input type="button" class="btn btn-outline-dark" value="Edit" /></a>&nbsp;&nbsp;
-                                    <a href="/GuestList/DeleteGuest/@row.GuestId"><input type="button" class="btn btn-outline-danger" value="Delete" /></a>
-                                </td>
-                            </tr>
-                        }
-                        </tbody>
-                    </table>
-                    <input type="hidden" name="FromPage" value="ManageGuestList" />
+    <!-- MDB core JavaScript -->
+    <script type="text/javascript" src="~/Scripts/mdb.min.js"></script>
 
-            </div>
-            <div class="col-1" align="center"></div>
-        </div>
-    </div> <!--Container-->
-<script src="~/Scripts/jquery-3.2.1.slim.min.js"></script>
-<script src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
-<script src="~/Scripts/popper.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
-
+    <!-- JQuery-Ajax -->
+    <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </body>
 </html>

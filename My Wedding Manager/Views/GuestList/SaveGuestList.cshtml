@@ -8,10 +8,82 @@
 
 <html>
 <head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Add New Guest</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
 
+    <title>Material Design Bootstrap</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <!-- Bootstrap core CSS -->
     <link href="~/Content/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Material Design Bootstrap -->
+    <link href="~/Content/mdb.min.css" rel="stylesheet">
+
+    <!-- Customised Checkbox -->
+    <link href="~/Content/Checkbox.css" rel="stylesheet">
+
+    <link rel="icon" type="image/x-icon" href="~/img/logo_f39_icon.ico">
+
+    <!-- Custom styles -->
+    <style rel="stylesheet">
+        /* Custom STYLES */
+        html,
+        body,
+        .view {
+            height: 100%;
+        }
+        /* Navigation*/
+
+        .navbar {
+            background-color: rgba(132,166,146,0.1);
+        }
+
+        .scrolling-navbar {
+            -webkit-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            -moz-transition: background .5s ease-in-out, padding .5s ease-in-out;
+            transition: background .5s ease-in-out, padding .5s ease-in-out;
+        }
+
+        .top-nav-collapse {
+            background-color: rgba(132,166,146,0.1);
+        }
+
+        footer.page-footer {
+            background-color: #adadad;
+            margin-top: -1px;
+        }
+
+        @@media only screen and (max-width: 1080px) {
+            .navbar {
+                background-color: rgba(132,166,146,0.1);
+            }
+        }
+
+        .navbar .btn-group .dropdown-menu a:hover {
+            color: #000 !important;
+        }
+
+        .navbar .btn-group .dropdown-menu a:active {
+            color: #fff !important;
+        }
+        /*Call to action*/
+
+        .view {
+            background: url("../../img/Design.jpeg")no-repeat center center fixed;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            -o-background-size: cover;
+            background-size: cover;
+            /*filter: background blur(1px);
+            -o-filter: blur(1px);
+            -ms-filter: blur(1px);
+            -moz-filter: blur(1px);
+            -webkit-filter: blur(1px);*/
+        }
+    </style>
     
     <script type="text/javascript">
         function ResetForm() {
@@ -22,23 +94,57 @@
     </script>
 </head>
 <body>
-    <div>
-        <form action="/GuestList/SaveGuest" method="post">
-            Name: <input type="text" id="gName" name="Name" value="@Model.Name" />@Html.ValidationMessage("Name")<br />
-            Contact Number: <input type="text" id="gContact" name="ContactNo" value="@Model.ContactNo" />@Html.ValidationMessage("ContactNo")<br />
-            Table Number: <input type="text" id="gTableNo" name="TableNo" value="@Model.TableNo" /><br />
+    <!--Navbar-->
+    <nav class="navbar navbar-expand-sm navbar-light fixed-top">
+        &nbsp;&nbsp;<a class="navbar-brand align-center justify-content-center" href="#"><img src="~/img/Logo3.png" height="35" alt="" class="d-inline-block align-center justify-content-center">&nbsp; Wedding Manager</a>
+    </nav>
+    <!--/.Navbar-->
+    <div class="view hm-black-dark">
+        <div class="full-bg-img">
+            <div class="container-fluid animated fadeInUp" style="height:100%;overflow:auto;">
+                <div class="flex-center">
+                    <form action="/GuestList/SaveGuest" method="post">
+                        <div class="md-form">
+                            <input type="text" class="form-control-lg" id="gName" name="Name" value="@Model.Name" autofocus />@Html.ValidationMessage("Name")
+                            <label for="gName">Name:</label>
+                        </div>
+                        <div class="md-form">
+                            <input type="text" class="form-control-lg" id="gContact" name="ContactNo" value="@Model.ContactNo" autocomplete="off" />@Html.ValidationMessage("ContactNo")
+                            <label for="gContact">Contact Number:</label>
+                        </div>
+                        <div class="md-form">
+                            <input type="text" class="form-control" id="gTableNo" name="TableNo" value="@Model.TableNo" autocomplete="off"/>
+                            <label for="gTableNo">Table Number:</label>
+                        </div>
 
-            @if (Model.Statusflag && IsPost)
-            {
-                <b>Guest added!</b><br />
-            }
-            <input type="submit" name="BtnSubmit" value="Save Guest" />
-            <input type="button" name="BtnReset" value="Reset" onclick="ResetForm();" />
-            <input type="submit" name="BtnSubmit" value="Cancel" />
-        </form>
+                        @if (Model.Statusflag && IsPost)
+                        {
+                            <p class="text-success"><b>Guest added!</b></p>
+                        }
+                        <br />
+                        @Html.AntiForgeryToken()
+                        <input type="submit" name="BtnSubmit" class="form-control" value="Save Guest" />
+                        <input type="button" name="BtnReset" class="form-control" value="Reset" onclick="ResetForm();" />
+                        <input type="submit" name="BtnSubmit" class="form-control" value="Cancel" />
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
-<script src="~/Scripts/jquery-3.2.1.slim.min.js"></script>
-<script src="~/Scripts/popper.min.js"></script>
-<script src="~/Scripts/bootstrap.min.js"></script>
+            <!-- SCRIPTS -->
+            <!-- JQuery -->
+            <script type="text/javascript" src="~/Scripts/jquery-3.2.1.min.js"></script>
+
+            <!-- Bootstrap dropdown -->
+            <script type="text/javascript" src="~/Scripts/popper.min.js"></script>
+
+            <!-- Bootstrap core JavaScript -->
+            <script type="text/javascript" src="~/Scripts/bootstrap.min.js"></script>
+
+            <!-- MDB core JavaScript -->
+            <script type="text/javascript" src="~/Scripts/mdb.min.js"></script>
+
+            <!-- JQuery-Ajax -->
+            <script type="text/javascript" src="~/Scripts/jquery.unobtrusive-ajax.min.js"></script>
 </body>
 </html>
