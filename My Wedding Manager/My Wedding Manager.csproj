@@ -178,8 +178,8 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\GuestListController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TableController.cs" />
-    <Compile Include="Controllers\TestController.cs" />
     <Compile Include="DataAccessLayer\GuestsList.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -209,15 +209,14 @@
     </Content>
     <Content Include="img\acf6ef799abba0a219493f3de7b5a543--watercolor-leaves-watercolor-painting.jpg" />
     <Content Include="img\Design.jpeg" />
+    <Content Include="img\Design2.jpeg" />
     <Content Include="img\e148c8e4aec2d50a2ce37d063919c455.jpg" />
     <Content Include="img\lightbox\default-skin.png" />
     <Content Include="img\lightbox\default-skin.svg" />
     <Content Include="img\lightbox\preloader.gif" />
-    <Content Include="img\Logo - Copy - Copy.png" />
-    <Content Include="img\Logo - Copy.png" />
     <Content Include="img\Logo.png" />
     <Content Include="img\Logo2.png" />
-    <Content Include="img\logo_f39_icon.ico" />
+    <Content Include="img\Mobile1.jpeg" />
     <Content Include="img\overlays\01.png" />
     <Content Include="img\overlays\02.png" />
     <Content Include="img\overlays\03.png" />
@@ -229,6 +228,8 @@
     <Content Include="img\overlays\09.png" />
     <Content Include="img\svg\arrow_left.svg" />
     <Content Include="img\svg\arrow_right.svg" />
+    <Content Include="img\Title.png" />
+    <Content Include="img\Title2.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\esm\popper-utils.js" />
@@ -326,15 +327,11 @@
     <Content Include="Scripts\popper-utils.min.js.map" />
     <Content Include="Scripts\popper-utils.js.map" />
     <Content Include="Views\Table\TableView.cshtml" />
-    <Content Include="Views\Test\Create.cshtml" />
-    <Content Include="Views\Test\Delete.cshtml" />
-    <Content Include="Views\Test\Details.cshtml" />
-    <Content Include="Views\Test\Edit.cshtml" />
-    <Content Include="Views\Test\Index.cshtml" />
     <Content Include="Views\GuestList\EditGuestList.cshtml" />
     <Content Include="Views\GuestList\ManageGuestList.cshtml" />
     <Content Include="Views\GuestList\DeleteGuestConfirm.cshtml" />
     <Content Include="Views\GuestList\EditGuestListError.cshtml" />
+    <Content Include="Views\Home\SaveTheDate.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -25,7 +25,7 @@
     <!-- Customised Checkbox -->
     <link href="~/Content/Checkbox.css" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="~/img/logo_f39_icon.ico">
+    <link rel="icon" type="image/x-icon" href="~/img/logo_icon.png">
 
     <!-- Custom styles -->
     <style rel="stylesheet">
@@ -38,7 +38,7 @@
         /* Navigation*/
 
         .navbar {
-            background-color: rgba(132,166,146,0.1);
+            background-color: rgba(252,255,250,0.3);
         }
 
         .scrolling-navbar {
@@ -48,7 +48,7 @@
         }
 
         .top-nav-collapse {
-            background-color: rgba(132,166,146,0.1);
+            background-color: rgba(252,255,250,0.3);
         }
 
         footer.page-footer {
@@ -56,9 +56,30 @@
             margin-top: -1px;
         }
 
-        @@media only screen and (max-width: 1080px) {
+        @@media only screen and (max-width: 600px) {
             .navbar {
-                background-color: rgba(132,166,146,0.1);
+                background-color: rgba(132, 166, 146, 0.2);
+            }
+
+            .col-2 {
+                -ms-flex: 0 0 0%;
+                flex: 0 0 0%;
+                max-width: 0%;
+            }
+
+            .table {
+                float: left;
+                clear: both;
+                width: 95%;
+                overflow-x: auto;
+            }
+
+            .view {
+                background: url("../../img/Mobile1.jpeg")no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
             }
         }
 
@@ -72,7 +93,7 @@
         /*Call to action*/
 
         .view {
-            background: url("../../img/Design.jpeg")no-repeat center center fixed;
+            background: url("../../img/Design2.jpeg")no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
@@ -83,9 +104,58 @@
             -moz-filter: blur(1px);
             -webkit-filter: blur(1px);*/
         }
+        .md-form a:hover {
+            filter: brightness(50%);
+            -o-filter: brightness(50%);
+            -ms-filter: brightness(50%);
+            -moz-filter: brightness(50%);
+            -webkit-filter: brightness(50%);
+        }
     </style>
 
     <script type="text/javascript">
+        // Clear Filter1
+        function ClearFilter1(){
+            var input1 = document.getElementById("filtername");
+            input1.value = "";
+            FilterTable();
+        }
+        // Clear Filter2
+        function ClearFilter2() {
+            var input2 = document.getElementById("filtertable");
+            input2.value = "";
+            FilterTable();
+        }
+        // Filter table
+        function FilterTable() {
+            var input1 = document.getElementById("filtername");
+            var filter1 = input1.value.toUpperCase();
+            var input2 = document.getElementById("filtertable");
+            var filter2 = input2.value.toUpperCase();
+            var table = document.getElementById("table1");
+            var tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                // Always show the first row, which is header
+                if (i != 0) {
+                    // Filter by name
+                    td1 = tr[i].getElementsByTagName("td")[1];
+                    td3 = tr[i].getElementsByTagName("td")[3];
+                    if (td1 || td3) {
+                        if ((td1.innerHTML.toUpperCase().indexOf(filter1) > -1) &&
+                            (td3.innerHTML.indexOf(filter2) > -1)) {
+                            tr[i].style.display = "";
+                        }
+                        else {
+                            tr[i].style.display = "none";
+                        }
+                    }
+                }
+                else {
+                    tr[i].style.display = "";
+                }
+            }
+        }
         //Update Attendance function
         function UpAttd(guestId) {
             var checkbox = $('#Attendance-' + guestId).is(":checked");
@@ -112,10 +182,13 @@
 <body>
     <!--Navbar-->
     <nav class="navbar navbar-expand-sm navbar-light fixed-top">
-        &nbsp;&nbsp;<a class="navbar-brand align-center justify-content-center" href="/GuestList/Index"><img src="~/img/Logo3.png" height="35" alt="" class="d-inline-block align-center justify-content-center">&nbsp; Wedding Manager</a>
+        &nbsp;&nbsp;<a class="navbar-brand align-center justify-content-center" href="/GuestList/Index">
+        <img src="~/img/Logo.png" height="30" alt="" class="d-inline-block align-center justify-content-center">
+        <img src="~/img/Title.png" height="30" class="d-inline-block align-center justify-content-around"></a>
         <ul class="navbar-nav mr-auto"></ul>
         <form class="form-inline">
-            <a href="/GuestList/Index"><i class="fa fa-arrow-left" style="font-size: 1.5em;color:black"></i>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
+            <a href="/GuestList/Index"><i class="fa fa-angle-double-left" style="font-size:x-large; color:grey"></i>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
         </form>
     </nav>
     <!--/.Navbar-->
@@ -124,20 +197,36 @@
         <div class="full-bg-img">
             <div class="container-fluid animated fadeInUp" style="height:100%;overflow:auto;">
                 <div class="row">
-                    <div class="col"></div><!--col-->
+                    <div class="col-2"></div><!--col-->
                     <div class="col-8">
                         <br />
                         <br />
                         <br />
                         <br />
                         <br />
-                        <div class="d-flex justify-content-end">
+                        <div class="d-flex justify-content-between">
+                            <form class="form-inline" id="form1">
+                                <div class="md-form form-group">
+                                    <input type="text" id="filtername" class="form-control" autocomplete="off" onkeyup="FilterTable();">
+                                    <label for="filtername">Filter by Name</label>
+                                </div>
+                                <div class="md-form form-group">
+                                    <a href="#" onclick="ClearFilter1();"><i class="fa fa-times" style="color:lightgrey;"></i></a>
+                                </div>
+                                <div class="md-form form-group">
+                                    <input type="text" id="filtertable" class="form-control" autocomplete="off" onkeyup="FilterTable();">
+                                    <label for="filtertable">Filter by Table No.</label>
+                                </div>
+                                <div class="md-form form-group">
+                                    <a href="#" onclick="ClearFilter2();"><i class="fa fa-times" style="color:lightgrey;"></i></a>
+                                </div>
+                            </form>
                             <a href="/GuestList/AddNew"><button class="btn btn-outline-light"><i class="fa fa-user-plus" style="font-size: 1.5em;color:grey"></i></button></a>
                         </div><!--dflex-->
                         <br />
                         <div class="z-depth-2" style="background-color: rgba(255, 255, 255, 0.1);">
-                            <table class="table table-hover table-sm">
-                                <thead style="color: black; font-weight: 800;background-color: rgba(255, 255, 255, 0.6);">
+                            <table class="table table-hover table-sm" id="table1">
+                                <thead style="color: black; font-weight: 900;background-color: rgba(255, 255, 255, 0.6);">
                                     <tr>
                                         <td align="center">Guest ID</td>
                                         <td>Name</td>
@@ -150,7 +239,7 @@
                                 <tbody class="tbody" style="background-color: rgba(255, 255, 255, 0.6);">
                                     @foreach (GuestViewModel row in Model.Guest)
                                     {
-                                        <tr style="color: rgba(128, 128, 128, 1.0); font-weight: 400;">
+                                        <tr style="color: black; font-weight: 400;">
                                             <td align="center">@row.GuestId</td>
                                             <td>@row.Name</td>
                                             <td>@row.ContactNo</td>
@@ -175,7 +264,7 @@
                                                 <input type="hidden" name="GuestIdForAttd" value="@row.GuestId" />
                                             </td>
                                             <td>
-                                                <a href="/GuestList/EditGuest/@row.GuestId"><button class="btn btn-outline-light btn-sm"><i class="fa fa-pencil" style="font-size: 1.6em;color:lightslategrey"></i></button></a>&nbsp;&nbsp;
+                                                <a href="/GuestList/EditGuest/@row.GuestId"><button class="btn btn-outline-light btn-sm"><i class="fa fa-pencil" style="font-size: 1.6em;color:grey"></i></button></a>&nbsp;&nbsp;
                                                 <a href="/GuestList/DeleteGuest/@row.GuestId"><button class="btn btn-outline-light btn-sm"><i class="fa fa-times" style="font-size: 1.6em;color:indianred"></i></button></a>
                                             </td>
                                         </tr>
@@ -185,7 +274,7 @@
                             <input type="hidden" name="FromPage" value="ManageGuestList" />
                         </div>
                     </div><!--col-->
-                    <div class="col"></div><!--col-->
+                    <div class="col-2"></div><!--col-->
                 </div>
             </div>
         </div>

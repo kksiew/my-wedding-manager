@@ -7,7 +7,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=yes">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
 
     <title>Material Design Bootstrap</title>
@@ -23,7 +23,7 @@
     <!-- Customised Checkbox -->
     <link href="~/Content/Checkbox.css" rel="stylesheet">
 
-    <link rel="icon" type="image/x-icon" href="~/img/logo_f39_icon.ico">
+    <link rel="icon" type="image/x-icon" href="~/img/logo_icon.png">
 
     <!-- Custom styles -->
     <style rel="stylesheet">
@@ -36,7 +36,7 @@
         /* Navigation*/
 
         .navbar {
-            background-color: rgba(132,166,146,0.1);
+            background-color: rgba(252,255,250,0.3);
         }
 
         .scrolling-navbar {
@@ -46,7 +46,7 @@
         }
 
         .top-nav-collapse {
-            background-color: rgba(132,166,146,0.1);
+            background-color: rgba(252,255,250,0.3);
         }
 
         footer.page-footer {
@@ -54,9 +54,27 @@
             margin-top: -1px;
         }
 
-        @@media only screen and (max-width: 1080px) {
+        @@media only screen and (max-width: 600px) {
             .navbar {
-                background-color: rgba(132,166,146,0.1);
+                background-color: rgba(132, 166, 146, 0.2);
+            }
+            .col-2 {
+                -ms-flex: 0 0 0%;
+                flex: 0 0 0%;
+                max-width: 0%;
+            }
+            .table {
+                float: left;
+                clear: both;
+                width: 95%;
+                overflow-x: auto;
+            }
+            .view {
+                background: url("../../img/Mobile1.jpeg")no-repeat center center fixed;
+                -webkit-background-size: cover;
+                -moz-background-size: cover;
+                -o-background-size: cover;
+                background-size: cover;
             }
         }
         .navbar .btn-group .dropdown-menu a:hover {
@@ -68,16 +86,18 @@
         /*Call to action*/
 
         .view {
-            background: url("../../img/Design.jpeg")no-repeat center center fixed;
+            background: url("../../img/Design2.jpeg")no-repeat center center fixed;
             -webkit-background-size: cover;
             -moz-background-size: cover;
             -o-background-size: cover;
             background-size: cover;
-            /*filter: background blur(1px);
-            -o-filter: blur(1px);
-            -ms-filter: blur(1px);
-            -moz-filter: blur(1px);
-            -webkit-filter: blur(1px);*/
+        }
+        .md-form a:hover {
+            filter: brightness(50%);
+            -o-filter: brightness(50%);
+            -ms-filter: brightness(50%);
+            -moz-filter: brightness(50%);
+            -webkit-filter: brightness(50%);
         }
     </style>
 
@@ -104,8 +124,7 @@
                         if (item.Attendance == true) {
                             checked = 'checked';
                         }
-                        else
-                        {
+                        else {
                             checked = '';
                         }
                         html += '<tr style="color: rgba(128, 128, 128, 1.0); font-weight: 400;">';
@@ -150,10 +169,12 @@
 <body>
     <!--Navbar-->
     <nav class="navbar navbar-expand-sm navbar-light fixed-top">
-        &nbsp;&nbsp;<a class="navbar-brand align-center justify-content-center" href="#"><img src="~/img/Logo3.png" height="35" alt="" class="d-inline-block align-center justify-content-center">&nbsp; Wedding Manager</a>
+        &nbsp;&nbsp;<a class="navbar-brand align-center justify-content-center" href="#">
+        <img src="~/img/Logo.png" height="30" class="d-inline-block align-center justify-content-center">
+        <img src="~/img/Title2.png" height="30" class="d-inline-block align-center justify-content-around"></a>
             <ul class="navbar-nav mr-auto"></ul>
             <form class="form-inline">
-                <a href="/GuestList/ManageGuests"><span class="navbar-toggler-icon"></span></a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="/GuestList/ManageGuests"><span class="fa fa-bars" style="font-size:larger; color:grey"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</a>
             </form>
     </nav>
     <!--/.Navbar-->
@@ -163,7 +184,7 @@
         <div class="full-bg-img">
             <div class="container-fluid animated fadeInUp" style="height:100%;overflow:auto;">
                 <div class="row">
-                    <div class="col"></div><!--col-->
+                    <div class="col-2"></div><!--col-->
                     <div class="col-8">
                         <br />
                         <br />
@@ -171,20 +192,18 @@
                         <br />
                         <br />
                         <div class="row">
-                            <div class="col-2"></div><!--col-->
                             <div class="col">
                                 <form class="form-inline" id="form1">
                                     <div class="md-form form-group">
                                         <!-- Original Input Color = #4285F4 (replaced with #84a692) -->
-                                        <input type="text" id="SearchByName1" class="form-control" name="SearchByName" autocomplete="off" onkeyup="FindGuest();" autofocus>
+                                        <input type="text" id="SearchByName1" class="form-control-sm" name="SearchByName" autocomplete="off" onkeyup="FindGuest();" autofocus>
                                         <label for="SearchByName1" class="">Search</label>
                                     </div>
                                     <div class="md-form form-group">
-                                        <a href="#" onclick="ClearSearch();"><i class="fa fa-times" style="color:grey;"></i>&nbsp;</a>
+                                        <a href="#" onclick="ClearSearch();" class="x-cross"><i class="fa fa-times" style="color:lightgrey"></i></a>
                                     </div>
                                 </form>
                             </div><!--col-->
-                            <div class="col-5"></div><!--col-->
                         </div>
                         <br />
                         <div class="z-depth-2" style="background-color: rgba(255, 255, 255, 0.1);">
@@ -202,7 +221,7 @@
                             </table>
                         </div>
                     </div><!--col-->
-                    <div class="col"></div><!--col-->
+                    <div class="col-2"></div><!--col-->
                 </div>
             </div>
         </div>
